@@ -32,6 +32,7 @@ dependencies {
 	testImplementation("io.rest-assured:xml-path:4.2.0")
 	testImplementation("io.rest-assured:json-path:4.2.0")
 	testImplementation("io.rest-assured:kotlin-extensions:4.2.0")
+	testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
 }
 
 tasks.withType<KotlinCompile> {

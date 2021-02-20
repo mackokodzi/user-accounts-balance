@@ -14,7 +14,7 @@ class NBPCurrencyRateRepository(
 
     private fun NBPRatesResponse.toDomain() =
         Price(
-            amount = rates.first().mid.toBigDecimal(), //TODO: list maybe empty
+            amount = rates.first().mid.toBigDecimal(), //TODO: list may be empty
             currency = USD_CURRENCY
         )
 }

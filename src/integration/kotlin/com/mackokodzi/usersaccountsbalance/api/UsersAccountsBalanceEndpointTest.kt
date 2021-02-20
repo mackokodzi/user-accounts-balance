@@ -1,4 +1,4 @@
-package com.mackokodzi.usersaccountsbalance
+package com.mackokodzi.usersaccountsbalance.api
 
 import com.mackokodzi.usersaccountsbalance.external.account.MongoUserAccountDocumentRepository
 import com.mackokodzi.usersaccountsbalance.mothers.external.NbpRatesResponseMother
@@ -9,6 +9,8 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
@@ -69,14 +71,15 @@ class UsersAccountsBalanceEndpointTest(
         }
     }
 
-    @Test
-    fun `should return 500 when nbp rates exchanger responds with error status code`() {
+    @ParameterizedTest
+    @ValueSource(ints = [500, 409])
+    fun `should return 500 when nbp rates exchanger responds with error status code`(httpStatusCode: Int) {
         // given
         val userAccountDocument = UserAccountDocumentMother.build()
         mongoUserAccountDocumentRepository.save(userAccountDocument)
 
         // and
-        stubGetUsdExchangeRateFailed(INTERNAL_SERVER_ERROR.value())
+        stubGetUsdExchangeRateFailed(httpStatusCode)
 
         // when
         Given {
