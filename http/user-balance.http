@@ -1,0 +1,9 @@
+### gets user balance expressed in USD
+
+### first user
+GET {{host}}/users/firstUser/accounts/firstAccount/balance/USD
+
+### second user
+GET {{host}}/users/secondUser/accounts/secondAccount/balance/USD
+
+###
